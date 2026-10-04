@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dragon jeds - บริการเรือนำเที่ยวและเจ็ทสกี</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <span class="text-2xl font-bold text-blue-600 tracking-wide">DRAGON JEDS</span>
+            </a>
+            <div class="space-x-2">
+                <a href="index.html" class="px-4 py-2 text-sm font-medium text-blue-600">หน้าหลัก</a>
+                <a href="booking.html" class="px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">จองรอบทันที</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner (พร้อมรูปพื้นหลัง) -->
+    <section class="relative bg-slate-900 text-white py-24 px-4 text-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1600&q=80" alt="Sea background" class="absolute inset-0 w-full h-full object-cover opacity-30">
+        
+        <div class="relative max-w-4xl mx-auto space-y-6 z-10">
+            <span class="bg-blue-600/40 text-blue-300 text-sm px-4 py-1.5 rounded-full border border-blue-400/30 backdrop-blur-sm">สัมผัสประสบการณ์สุดเร้าใจ</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">ปลดล็อกความสนุกกลางทะเลกับ <br><span class="text-blue-400">dragon jeds</span></h1>
+            <p class="text-slate-200 text-lg max-w-2xl mx-auto drop-shadow">บริการเรือนำเที่ยวระดับพรีเมียม ปลอดภัย สนุกครบรส พร้อมไกด์ผู้เชี่ยวชาญดูแลตลอดทริป</p>
+            <div class="pt-4">
+                <a href="booking.html" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-semibold text-lg px-8 py-4 rounded-xl shadow-xl transition transform hover:-translate-y-0.5">
+                    จองคิวเดินทางวันนี้
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="max-w-6xl mx-auto py-16 px-4">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl font-bold mb-3">ภาพบรรยากาศและความประทับใจ</h2>
+            <p class="text-slate-600">สัมผัสความงามของท้องทะเลและความสนุกกับกิจกรรมเรือและเจ็ทสกีจาก dragon jeds</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div class="group relative overflow-hidden rounded-2xl shadow-md aspect-video sm:aspect-square bg-slate-200">
+                <img src="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=800&q=80" alt="Speedboat trip" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                    <span class="text-white font-medium text-sm">ทริปเรือท่องเที่ยวเกาะ</span>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl shadow-md aspect-video sm:aspect-square bg-slate-200">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80" alt="Jet ski action" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                    <span class="text-white font-medium text-sm">เครื่องเจ็ทสกีประสิทธิภาพสูง</span>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl shadow-md aspect-video sm:aspect-square bg-slate-200">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Beautiful sea beach" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                    <span class="text-white font-medium text-sm">จุดแวะพักหาดทรายขาว</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights -->
+    <section class="bg-white py-16 px-4 border-y border-slate-100">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">ทำไมต้องเลือก dragon jeds?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 rounded-2xl bg-slate-50 text-center space-y-3">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mx-auto text-2xl font-bold">⚓</div>
+                    <h3 class="text-xl font-bold">เรือได้มาตรฐาน ปลอดภัย</h3>
+                    <p class="text-slate-600 text-sm">ตรวจเช็กสภาพเรือและอุปกรณ์ชูชีพอย่างสม่ำเสมอ เพื่อความมั่นใจสูงสุดในทุกรอบการเดินทาง</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 text-center space-y-3">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mx-auto text-2xl font-bold">🚩</div>
+                    <h3 class="text-xl font-bold">ไกด์มืออาชีพดูแลใกล้ชิด</h3>
+                    <p class="text-slate-600 text-sm">ทีมงานไกด์ประจำทริปพร้อมบริการ คอยช่วยถ่ายรูป และดูแลความสะดวกเรียบร้อยตลอดเส้นทาง</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 text-center space-y-3">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mx-auto text-2xl font-bold">⏰</div>
+                    <h3 class="text-xl font-bold">ตรงต่อเวลา จองง่าย</h3>
+                    <p class="text-slate-600 text-sm">ระบบบันทึกการจองล่วงหน้าที่รวดเร็ว ยืนยันรอบเดินทางชัดเจน ไม่ต้องรอนาน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="bg-blue-50 py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center space-y-4">
+            <h3 class="text-3xl font-bold text-slate-800">พร้อมออกเดินทางไปกับพวกเราหรือยัง?</h3>
+            <p class="text-slate-600 text-lg">เลือกวันเดินทางและรอบเวลาที่คุณต้องการได้ง่ายๆ ผ่านระบบออนไลน์</p>
+            <div class="pt-2">
+                <a href="booking.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg px-8 py-3.5 rounded-xl transition shadow-md">
+                    ไปที่หน้าแบบฟอร์มการจอง
+                </a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
