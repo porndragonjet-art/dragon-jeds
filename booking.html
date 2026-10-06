@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มบันทึกการจอง - DRAGON JEDS</title>
+    <title>DRAGON JEDS - บริการเรือนำเที่ยวระดับพรีเมียม</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Swiper.js CSS (สำหรับรูปเลื่อนได้) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         * {
@@ -18,16 +21,14 @@
         }
 
         body {
-            background-color: #f1f5f9;
-            color: #1e293b;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            color: #333;
+            background-color: #f8f9fa;
         }
 
+        /* Navigation Bar */
         header {
             background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -47,14 +48,20 @@
             font-weight: 700;
             color: #1a56db;
             text-decoration: none;
+            letter-spacing: 0.5px;
             line-height: 1.2;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .nav-link {
             text-decoration: none;
-            color: #475569;
+            color: #4a5568;
             font-weight: 500;
-            font-size: 15px;
             transition: color 0.3s;
         }
 
@@ -62,256 +69,353 @@
             color: #1a56db;
         }
 
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-        }
-
-        .booking-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 480px;
-            border-radius: 20px;
-            padding: 32px 28px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .card-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .back-link {
-            text-decoration: none;
-            color: #2563eb;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 6px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 14px;
-            font-size: 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            background-color: #ffffff;
-            color: #0f172a;
-        }
-
-        .form-control:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        .form-control[readonly] {
-            background-color: #f0f7ff;
-            color: #1a56db;
-            font-weight: 600;
-            border-color: #bfdbfe;
-        }
-
-        .price-summary-box {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 8px;
-        }
-
-        .price-row.total {
-            border-top: 1px dashed #cbd5e1;
-            padding-top: 10px;
-            margin-bottom: 0;
-            font-size: 18px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .total-amount {
-            color: #2563eb;
-            font-size: 22px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: #2563eb;
+        .btn-primary {
+            background-color: #1a56db;
             color: #ffffff;
-            border: none;
-            padding: 14px;
-            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: 600;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition: background 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(26, 86, 219, 0.2);
+            white-space: nowrap;
         }
 
-        .btn-submit:hover {
-            background-color: #1d4ed8;
+        .btn-primary:hover {
+            background-color: #1e429f;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('เรือ/bots p.jpg') center/cover no-repeat;
+            color: #ffffff;
+            text-align: center;
+            padding: 90px 20px 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tagline {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .hero h1 span {
+            color: #60a5fa;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 16px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        /* Section Title Common */
+        .section-title {
+            text-align: center;
+            padding: 50px 20px 20px;
+        }
+
+        .section-title h2 {
+            font-size: 26px;
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* Why Choose Us Section */
+        .features-container {
+            max-width: 1100px;
+            margin: 20px auto 60px;
+            padding: 0 20px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(26, 86, 219, 0.12);
+            border-color: #1a56db;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: #eff6ff;
+            color: #1a56db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Image Swiper Carousel */
+        .gallery-container {
+            max-width: 1000px;
+            margin: 20px auto 60px;
+            padding: 0 20px;
+        }
+
+        .swiper {
+            width: 100%;
+            padding-bottom: 45px !important;
+            border-radius: 16px;
+        }
+
+        .swiper-slide {
+            position: relative;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* กรอบข้อความสีขาวทึบ อ่านง่าย ชัดเจน */
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 500px;
+            padding: 12px 24px;
+            background: #ffffff; /* เปลี่ยนเป็นสีขาวทึบ */
+            border-radius: 30px; /* ทรงโค้งมนสวยงาม */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+            color: #1e293b;
+            font-weight: 600;
+            text-align: center;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: #1a56db !important;
+            background: #ffffff;
+            width: 42px !important;
+            height: 42px !important;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 18px !important;
+            font-weight: bold;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #1a56db !important;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 600px) {
+            .nav-container {
+                padding: 12px 15px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .nav-menu {
+                gap: 10px;
+            }
+
+            .nav-link {
+                font-size: 14px;
+            }
+
+            .btn-primary {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 50px 15px 60px;
+            }
+
+            .hero h1 {
+                font-size: 22px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .swiper-slide img {
+                height: 300px;
+            }
+
+            .slide-caption {
+                font-size: 14px;
+                padding: 10px 16px;
+                bottom: 15px;
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">DRAGON<br>JEDS</a>
-            <a href="packages.html" class="nav-link">← เปลี่ยนแพ็กเกจ</a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">หน้าหลัก</a>
+                <a href="packages.html" class="btn-primary">จองรอบทันที</a>
+            </nav>
         </div>
     </header>
 
-    <div class="main-wrapper">
-        <div class="booking-card">
-            
-            <div class="card-header">
-                <h1 class="card-title">ฟอร์มบันทึกการจอง</h1>
-                <a href="packages.html" class="back-link">← เลือกแพ็กเกจ</a>
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="tagline">สัมผัสประสบการณ์สุดเร้าใจ</div>
+        <h1>ปลดล็อคความสนุกกลางทะเลกับ<br><span>DRAGON JEDS</span></h1>
+        <p>บริการเรือนำเที่ยวระดับพรีเมียม ปลอดภัย สนุกครบรส พร้อมไกด์ผู้เชี่ยวชาญดูแลตลอดทริป</p>
+        <a href="packages.html" class="btn-primary" style="font-size: 16px; padding: 12px 28px;">จองคิวเดินทางวันนี้</a>
+    </section>
+
+     <!-- Section Gallery -->
+    <section class="section-title">
+        <h2>ภาพบรรยากาศและความประทับใจ</h2>
+        <p>สัมผัสความงามของท้องทะเลและความสนุกกับกิจกรรมเรือและเจ็ทสกีจาก dragon jeds</p>
+    </section>
+
+    <!-- Image Slider Section -->
+    <section class="gallery-container">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- สไลด์ที่ 1 (ใส่ชื่อไฟล์รูปภาพของคุณตรง src) -->
+                <div class="swiper-slide">
+                    <img src="เรือ/bots7.jpg" alt="ดำน้ำชมปะการัง">
+                    <div class="slide-caption">ดำน้ำชมปะการัง</div>
+                </div>
+                <!-- สไลด์ที่ 2 -->
+                <div class="swiper-slide">
+                    <img src="เรือ/bots2.jpg" alt="เล่นร่ม">
+                    <div class="slide-caption">เล่นร่ม</div>
+                </div>
+                <!-- สไลด์ที่ 3 -->
+                <div class="swiper-slide">
+                    <img src="เรือ/jsk1.JPG" alt="้เล่นเจ็ตสกี">
+                    <div class="slide-caption">เล่นเจ็ทสกีรอบเกาะ</div>
+                </div>
             </div>
-
-            <form action="#" method="POST" onsubmit="handleBookingSubmit(event)">
-                
-                <div class="form-group">
-                    <label for="package-name">แพ็กเกจที่เลือก</label>
-                    <input type="text" id="package-name" class="form-control" value="กำลังโหลด..." readonly>
-                </div>
-
-                <div class="form-group">
-                    <label for="travel-date">วันที่เดินทาง</label>
-                    <input type="date" id="travel-date" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="time-slot">รอบเวลา</label>
-                    <input type="text" id="time-slot" class="form-control" placeholder="เช่น 08:00" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="company">ชื่อบริษัท / คณะ</label>
-                    <input type="text" id="company" class="form-control" placeholder="กรอกชื่อบริษัท / คณะ">
-                </div>
-
-                <div class="form-group">
-                    <label for="contact-name">ผู้ติดต่อ</label>
-                    <input type="text" id="contact-name" class="form-control" placeholder="ชื่อผู้ติดต่อ" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">เบอร์โทร</label>
-                    <input type="tel" id="phone" class="form-control" placeholder="08X-XXX-XXXX" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="pax">จำนวนคน</label>
-                    <input type="number" id="pax" class="form-control" value="1" min="1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="guide">จำนวนไกด์</label>
-                    <input type="number" id="guide" class="form-control" value="0" min="0" required>
-                </div>
-
-                <!-- สรุปราคา -->
-                <div class="price-summary-box">
-                    <div class="price-row">
-                        <span>ราคาแพ็กเกจต่อท่าน:</span>
-                        <span id="price-per-person">฿0</span>
-                    </div>
-                    <div class="price-row total">
-                        <span>ราคารวมทั้งหมด:</span>
-                        <span class="total-amount" id="total-price">฿0</span>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-submit">ยืนยันการจอง</button>
-
-            </form>
-
+            <!-- ปุ่มกดเลื่อนและจุดบอกตำแหน่ง -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-    </div>
+    </section>
 
+    <!-- Section: Why Choose Us -->
+    <section class="section-title">
+        <h2>ทำไมต้องเลือก Dragon Jeds?</h2>
+        <p>ยกระดับการเดินทางท่องเที่ยวทางทะเลด้วยมาตรฐานและการบริการที่คุณไว้วางใจได้</p>
+    </section>
+
+    <section class="features-container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>ปลอดภัย ไร้กังวล</h3>
+                <p>อุปกรณ์ความปลอดภัยมาตรฐานระดับสากล พร้อมเสื้อชูชีพและระบบติดตามเรือตลอดการเดินทาง</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚓</div>
+                <h3>เรือและอุปกรณ์พรีเมียม</h3>
+                <p>เรือนำเที่ยวและเจ็ทสกีสภาพใหม่ ผ่านการตรวจเช็คคุณภาพอย่างสม่ำเสมอ สมรรถนะดีเยี่ยม</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍✈️</div>
+                <h3>ทีมงานผู้เชี่ยวชาญ</h3>
+                <p>กัปตันและไกด์นำเที่ยวท้องถิ่นมืออาชีพ ดูแลและให้คำแนะนำอย่างใกล้ชิดตลอดทั้งทริป</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Swiper.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Script เริ่มต้นทำงานสไลเดอร์ -->
     <script>
-        let unitPricePerPerson = 0;
-
-        function calculateTotal() {
-            const paxInput = document.getElementById('pax');
-            let pax = parseInt(paxInput.value) || 1;
-            if (pax < 1) pax = 1;
-
-            // คำนวณราคารวม = ราคาแพ็กเกจต่อคน x จำนวนคน
-            const total = unitPricePerPerson * pax;
-
-            document.getElementById('price-per-person').innerText = '฿' + unitPricePerPerson.toLocaleString();
-            document.getElementById('total-price').innerText = '฿' + total.toLocaleString();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const selectedPackages = urlParams.get('packages') || urlParams.get('package');
-            const priceParam = urlParams.get('price');
-
-            // รับค่าราคารวมต่อคนจากหน้า packages (หากไม่มีจะใช้ค่าเริ่มต้น 0)
-            if (priceParam && !isNaN(priceParam)) {
-                unitPricePerPerson = parseFloat(priceParam);
-            }
-
-            const packageInput = document.getElementById('package-name');
-            if (selectedPackages && selectedPackages.trim() !== '') {
-                packageInput.value = decodeURIComponent(selectedPackages);
-            } else {
-                packageInput.value = 'ไม่ได้เลือกแพ็กเกจ';
-            }
-
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('travel-date').value = today;
-
-            // ผูก Event คำนวณราคาเมื่อมีการเพิ่ม/ลดจำนวนคน
-            const paxInput = document.getElementById('pax');
-            paxInput.addEventListener('input', calculateTotal);
-            paxInput.addEventListener('change', calculateTotal);
-
-            // คำนวณราคารอบแรก
-            calculateTotal();
+        const swiper = new Swiper('.mySwiper', {
+            loop: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
         });
-
-        function handleBookingSubmit(event) {
-            event.preventDefault();
-            alert('บันทึกการจองสำเร็จแล้ว!');
-        }
     </script>
 
 </body>
