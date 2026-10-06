@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกแพ็กเกจท่องเที่ยว - DRAGON JEDS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding-bottom: 100px;
+        }
+
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a56db;
+            text-decoration: none;
+            line-height: 1.2;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #1a56db;
+        }
+
+        .page-title {
+            text-align: center;
+            padding: 40px 20px 10px;
+        }
+
+        .page-title h1 {
+            font-size: 30px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .packages-container {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .package-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .package-card.selected {
+            border-color: #2563eb;
+            background-color: #f0f7ff;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.18);
+        }
+
+        .package-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .package-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .package-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .package-desc {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .package-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .price-tag {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a56db;
+        }
+
+        .price-tag span {
+            font-size: 13px;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-circle-checkbox {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #cbd5e1;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .custom-circle-checkbox::after {
+            content: "✓";
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .package-checkbox-input {
+            display: none;
+        }
+
+        .package-checkbox-input:checked + .custom-circle-checkbox {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .package-checkbox-input:checked + .custom-circle-checkbox::after {
+            display: block;
+        }
+
+        .select-label-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .bottom-action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            padding: 16px 20px;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action-container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .selected-summary {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .selected-summary span {
+            color: #2563eb;
+            font-size: 18px;
+        }
+
+        .btn-proceed {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-proceed:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-proceed:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        @media (max-width: 600px) {
+            .action-container {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .btn-proceed {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">DRAGON<br>JEDS</a>
+            <a href="index.html" class="nav-link">← กลับหน้าหลัก</a>
+        </div>
+    </header>
+
+    <div class="page-title">
+        <h1>เลือกแพ็กเกจที่คุณต้องการ</h1>
+        <p>คุณสามารถคลิกเลือกได้มากกว่า 1 แพ็กเกจ</p>
+    </div>
+
+    <section class="packages-container">
+        <div class="packages-grid">
+
+            <!-- Jet Ski: 500 บาท -->
+            <div class="package-card" onclick="toggleCardSelection(this)">
+                <img src="เรือ/jsk1.JPG" alt="Jet Ski" class="package-img">
+                <div class="package-body">
+                    <h2 class="package-title">Jet Ski</h2>
+                    <p class="package-desc">นั่งเจ็ทสกีตะลุยรอบเกาะ พร้อมพนักงานพาขับ</p>
+                    <div class="package-footer">
+                        <div class="price-tag">฿500 <span>/กรุ๊ป</span></div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="package-checkbox-input" value="Jet Ski" data-price="500">
+                            <div class="custom-circle-checkbox"></div>
+                            <span class="select-label-text">เลือก</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parasailing (ร่ม): 500 บาท -->
+            <div class="package-card" onclick="toggleCardSelection(this)">
+                <img src="เรือ/bots1.jpg" alt="Parasailing" class="package-img">
+                <div class="package-body">
+                    <h2 class="package-title">Parasailing (ร่ม)</h2>
+                    <p class="package-desc">ลอยฟ้าชมวิวทะเล 360 องศา</p>
+                    <div class="package-footer">
+                        <div class="price-tag">฿500 <span>/กรุ๊ป</span></div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="package-checkbox-input" value="Parasailing" data-price="500">
+                            <div class="custom-circle-checkbox"></div>
+                            <span class="select-label-text">เลือก</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sea Walker (ดำน้ำ): 800 บาท -->
+            <div class="package-card" onclick="toggleCardSelection(this)">
+                <img src="เรือ/bots4.jpg" alt="Sea Walker" class="package-img">
+                <div class="package-body">
+                    <h2 class="package-title">Sea Walker (ดำน้ำ)</h2>
+                    <p class="package-desc">เดินท่องใต้ทะเล เล่นกับฝูงปลาแบบใกล้ชิด</p>
+                    <div class="package-footer">
+                        <div class="price-tag">฿800 <span>/กรุ๊ป</span></div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="package-checkbox-input" value="Sea Walker" data-price="800">
+                            <div class="custom-circle-checkbox"></div>
+                            <span class="select-label-text">เลือก</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sticky Bottom Bar -->
+    <div class="bottom-action-bar">
+        <div class="action-container">
+            <div class="selected-summary">
+                เลือกแล้ว <span id="count-display">0</span> รายการ (รวม ฿<span id="price-display">0</span>/คน)
+            </div>
+            <button id="btn-proceed" class="btn-proceed" onclick="goToBooking()" disabled>
+                ไปที่หน้าบันทึกการจอง →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function toggleCardSelection(cardElement) {
+            const checkbox = cardElement.querySelector('.package-checkbox-input');
+            checkbox.checked = !checkbox.checked;
+
+            if (checkbox.checked) {
+                cardElement.classList.add('selected');
+            } else {
+                cardElement.classList.remove('selected');
+            }
+            updateSelection();
+        }
+
+        function updateSelection() {
+            const checkboxes = document.querySelectorAll('.package-checkbox-input:checked');
+            const count = checkboxes.length;
+            const btnProceed = document.getElementById('btn-proceed');
+            const countDisplay = document.getElementById('count-display');
+            const priceDisplay = document.getElementById('price-display');
+
+            let totalPricePerPerson = 0;
+            checkboxes.forEach(cb => {
+                totalPricePerPerson += parseFloat(cb.getAttribute('data-price')) || 0;
+            });
+
+            countDisplay.textContent = count;
+            priceDisplay.textContent = totalPricePerPerson.toLocaleString();
+
+            btnProceed.disabled = (count === 0);
+        }
+
+        function goToBooking() {
+            const checkboxes = document.querySelectorAll('.package-checkbox-input:checked');
+            if (checkboxes.length === 0) return;
+
+            const selectedPackages = [];
+            let totalPricePerPerson = 0;
+
+            checkboxes.forEach(cb => {
+                selectedPackages.push(cb.value);
+                totalPricePerPerson += parseFloat(cb.getAttribute('data-price')) || 0;
+            });
+
+            const packageQuery = encodeURIComponent(selectedPackages.join(' + '));
+            // ส่งทั้งชื่อแพ็กเกจและราคารวมต่อคน (price) ไปยังหน้า booking.html
+            window.location.href = `booking.html?packages=${packageQuery}&price=${totalPricePerPerson}`;
+        }
+    </script>
+
+</body>
+</html>
