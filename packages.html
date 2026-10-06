@@ -365,44 +365,42 @@
             } else {
                 cardElement.classList.remove('selected');
             }
-            updateSelection();
+
+            updateSummary();
         }
 
-        function updateSelection() {
+        function updateSummary() {
             const checkboxes = document.querySelectorAll('.package-checkbox-input:checked');
-            const count = checkboxes.length;
-            const btnProceed = document.getElementById('btn-proceed');
-            const countDisplay = document.getElementById('count-display');
-            const priceDisplay = document.getElementById('price-display');
+            let count = checkboxes.length;
+            let totalPrice = 0;
 
-            let totalPricePerPerson = 0;
             checkboxes.forEach(cb => {
-                totalPricePerPerson += parseFloat(cb.getAttribute('data-price')) || 0;
+                totalPrice += parseInt(cb.getAttribute('data-price'));
             });
 
-            countDisplay.textContent = count;
-            priceDisplay.textContent = totalPricePerPerson.toLocaleString();
+            document.getElementById('count-display').innerText = count;
+            document.getElementById('price-display').innerText = totalPrice.toLocaleString();
 
-            btnProceed.disabled = (count === 0);
+            const proceedBtn = document.getElementById('btn-proceed');
+            if (count > 0) {
+                proceedBtn.disabled = false;
+            } else {
+                proceedBtn.disabled = true;
+            }
         }
 
         function goToBooking() {
-            const checkboxes = document.querySelectorAll('.package-checkbox-input:checked');
-            if (checkboxes.length === 0) return;
-
             const selectedPackages = [];
-            let totalPricePerPerson = 0;
-
+            const checkboxes = document.querySelectorAll('.package-checkbox-input:checked');
+            
             checkboxes.forEach(cb => {
                 selectedPackages.push(cb.value);
-                totalPricePerPerson += parseFloat(cb.getAttribute('data-price')) || 0;
             });
 
-            const packageQuery = encodeURIComponent(selectedPackages.join(' + '));
-            // ส่งทั้งชื่อแพ็กเกจและราคารวมต่อคน (price) ไปยังหน้า booking.html
-            window.location.href = `booking.html?packages=${packageQuery}&price=${totalPricePerPerson}`;
+            // ส่งชื่อแพ็กเกจที่เลือกไปยังหน้า booking.html ผ่าน URL Query String
+            const query = encodeURIComponent(selectedPackages.join(','));
+            window.location.href = `booking.html?packages=${query}`;
         }
     </script>
-
 </body>
 </html>
