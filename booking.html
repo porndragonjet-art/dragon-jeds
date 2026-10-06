@@ -3,138 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dragon jeds - บันทึกการจอง</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>ฟอร์มบันทึกการจอง - DRAGON JEDS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Prompt', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a56db;
+            text-decoration: none;
+            line-height: 1.2;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #1a56db;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .booking-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 20px;
+            padding: 32px 28px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .form-control[readonly] {
+            background-color: #f0f7ff;
+            color: #1a56db;
+            font-weight: 600;
+            border-color: #bfdbfe;
+        }
+
+        .price-summary-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .price-row.total {
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 10px;
+            margin-bottom: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .total-amount {
+            color: #2563eb;
+            font-size: 22px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen text-slate-800">
+<body>
 
-    <!-- Navigation Bar -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2">
-                <span class="text-2xl font-bold text-blue-600 tracking-wide">DRAGON JEDS</span>
-            </a>
-            <div class="space-x-2">
-                <a href="index.html" class="px-4 py-2 text-sm font-medium hover:text-blue-600 transition">หน้าหลัก</a>
-                <a href="booking.html" class="px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg shadow-sm">จองรอบทันที</a>
-            </div>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">DRAGON<br>JEDS</a>
+            <a href="packages.html" class="nav-link">← เปลี่ยนแพ็กเกจ</a>
         </div>
-    </nav>
+    </header>
 
-    <!-- Form Section -->
-    <div class="py-10 px-4">
-        <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-md p-6 sm:p-8 border border-slate-100">
-            <div class="mb-6 flex justify-between items-center pb-4 border-b border-slate-100">
-                <h1 class="text-2xl font-bold text-slate-800">ฟอร์มบันทึกการจอง</h1>
-                <a href="index.html" class="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline">← กลับหน้าหลัก</a>
+    <div class="main-wrapper">
+        <div class="booking-card">
+            
+            <div class="card-header">
+                <h1 class="card-title">ฟอร์มบันทึกการจอง</h1>
+                <a href="packages.html" class="back-link">← เลือกแพ็กเกจ</a>
             </div>
 
-            <form id="bookingForm" onsubmit="submitData(event)" class="space-y-4">
+            <form action="#" method="POST" onsubmit="handleBookingSubmit(event)">
                 
-                <!-- วันที่เดินทาง & รอบเวลา -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">วันที่เดินทาง</label>
-                        <input type="date" id="bookingDate" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                <div class="form-group">
+                    <label for="package-name">แพ็กเกจที่เลือก</label>
+                    <input type="text" id="package-name" class="form-control" value="กำลังโหลด..." readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="travel-date">วันที่เดินทาง</label>
+                    <input type="date" id="travel-date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time-slot">รอบเวลา</label>
+                    <input type="text" id="time-slot" class="form-control" placeholder="เช่น 08:00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">ชื่อบริษัท / คณะ</label>
+                    <input type="text" id="company" class="form-control" placeholder="กรอกชื่อบริษัท / คณะ">
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-name">ผู้ติดต่อ</label>
+                    <input type="text" id="contact-name" class="form-control" placeholder="ชื่อผู้ติดต่อ" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">เบอร์โทร</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="08X-XXX-XXXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pax">จำนวนคน</label>
+                    <input type="number" id="pax" class="form-control" value="1" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guide">จำนวนไกด์</label>
+                    <input type="number" id="guide" class="form-control" value="0" min="0" required>
+                </div>
+
+                <!-- สรุปราคา -->
+                <div class="price-summary-box">
+                    <div class="price-row">
+                        <span>ราคาแพ็กเกจต่อท่าน:</span>
+                        <span id="price-per-person">฿0</span>
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">รอบเวลา</label>
-                        <input type="text" id="departureTime" placeholder="เช่น 08:00" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                    <div class="price-row total">
+                        <span>ราคารวมทั้งหมด:</span>
+                        <span class="total-amount" id="total-price">฿0</span>
                     </div>
                 </div>
 
-                <!-- ชื่อบริษัท -->
-                <div>
-                    <label class="block text-sm font-semibold mb-1 text-slate-700">ชื่อบริษัท / คณะ</label>
-                    <input type="text" id="companyName" placeholder="กรอกชื่อบริษัท / คณะ" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                </div>
+                <button type="submit" class="btn-submit">ยืนยันการจอง</button>
 
-                <!-- ผู้ติดต่อ & เบอร์โทร -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">ผู้ติดต่อ</label>
-                        <input type="text" id="contactName" placeholder="ชื่อผู้ติดต่อ" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">เบอร์โทร</label>
-                        <input type="tel" id="contactPhone" placeholder="08X-XXX-XXXX" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                    </div>
-                </div>
-
-                <!-- จำนวนคน & จำนวนไกด์ -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">จำนวนคน</label>
-                        <input type="number" id="paxCount" min="1" value="1" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1 text-slate-700">จำนวนไกด์</label>
-                        <input type="number" id="guideCount" min="0" value="0" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                    </div>
-                </div>
-
-                <!-- ปุ่มบันทึก -->
-                <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg transition duration-200 shadow-md mt-6">
-                    บันทึกข้อมูลการจอง
-                </button>
             </form>
 
-            <div id="successMsg" class="hidden mt-4 p-4 bg-emerald-100 border border-emerald-200 text-emerald-800 rounded-lg text-center font-semibold">
-                บันทึกข้อมูลการจองเรียบร้อยแล้ว!
-            </div>
         </div>
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpRuzC4jtcp-Mrob4PJe25TUEPhpUTSoBJZ53a4g-if_m77OLRr_aFDqLV9EnUK0yb2A/exec";
+        let unitPricePerPerson = 0;
 
-        document.getElementById('bookingDate').value = new Date().toISOString().split('T')[0];
+        function calculateTotal() {
+            const paxInput = document.getElementById('pax');
+            let pax = parseInt(paxInput.value) || 1;
+            if (pax < 1) pax = 1;
 
-        async function submitData(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerText = 'กำลังบันทึก...';
+            // คำนวณราคารวม = ราคาแพ็กเกจต่อคน x จำนวนคน
+            const total = unitPricePerPerson * pax;
 
-            const payload = {
-                bookingId: 'BK-' + Math.floor(100000 + Math.random() * 900000),
-                bookingDate: document.getElementById('bookingDate').value,
-                departureTime: document.getElementById('departureTime').value,
-                companyName: document.getElementById('companyName').value,
-                contactName: document.getElementById('contactName').value,
-                contactPhone: document.getElementById('contactPhone').value,
-                paxCount: document.getElementById('paxCount').value,
-                guideCount: document.getElementById('guideCount').value
-            };
+            document.getElementById('price-per-person').innerText = '฿' + unitPricePerPerson.toLocaleString();
+            document.getElementById('total-price').innerText = '฿' + total.toLocaleString();
+        }
 
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
-                });
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedPackages = urlParams.get('packages') || urlParams.get('package');
+            const priceParam = urlParams.get('price');
 
-                document.getElementById('bookingForm').reset();
-                document.getElementById('bookingDate').value = new Date().toISOString().split('T')[0];
-                document.getElementById('guideCount').value = "0";
-                document.getElementById('successMsg').classList.remove('hidden');
-
-                setTimeout(() => {
-                    document.getElementById('successMsg').classList.add('hidden');
-                }, 4000);
-
-            } catch (err) {
-                alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = 'บันทึกข้อมูลการจอง';
+            // รับค่าราคารวมต่อคนจากหน้า packages (หากไม่มีจะใช้ค่าเริ่มต้น 0)
+            if (priceParam && !isNaN(priceParam)) {
+                unitPricePerPerson = parseFloat(priceParam);
             }
+
+            const packageInput = document.getElementById('package-name');
+            if (selectedPackages && selectedPackages.trim() !== '') {
+                packageInput.value = decodeURIComponent(selectedPackages);
+            } else {
+                packageInput.value = 'ไม่ได้เลือกแพ็กเกจ';
+            }
+
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('travel-date').value = today;
+
+            // ผูก Event คำนวณราคาเมื่อมีการเพิ่ม/ลดจำนวนคน
+            const paxInput = document.getElementById('pax');
+            paxInput.addEventListener('input', calculateTotal);
+            paxInput.addEventListener('change', calculateTotal);
+
+            // คำนวณราคารอบแรก
+            calculateTotal();
+        });
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            alert('บันทึกการจองสำเร็จแล้ว!');
         }
     </script>
+
 </body>
 </html>
